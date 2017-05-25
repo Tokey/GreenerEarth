@@ -1,6 +1,6 @@
 
 drop table Profile;
-
+drop table Messages;
 CREATE Table Profile
 (
     Name varchar(500),
@@ -11,7 +11,8 @@ CREATE Table Profile
     state varchar(10) default "loggedOut",
     ID int NOT NULL AUTO_INCREMENT,
     PRIMARY KEY (ID),
-    Vision varchar(5000)		
+    Vision varchar(5000),
+    totalDonation int default 0		
 );
 
 INSERT INTO profile (Name,Email,Password,Vision)
@@ -29,3 +30,18 @@ Values('Naimul','saminshahriar@rocketmail.com','Why do you find potatoes so fasc
 
 Insert INTO Messages 
 Values('Naimul','saminshahriar@rocketmail.com','Tell Me man!!');
+
+
+CREATE Table Survey
+(
+    Name varchar(500) unique,
+    level varchar(5000) default "I'm a Graduade Student" not null,
+    global varchar(5000),
+	evidence varchar(5000),
+	activity varchar(5000),
+	environment varchar(5000),
+	steps varchar(5000)
+    		
+);
+
+insert into survey values('Tokey','illiterate','unsure','why would i care','plis','dont care','go home')

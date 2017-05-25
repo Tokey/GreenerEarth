@@ -29,7 +29,12 @@
                 <a class="navbar-brand" href="htttp://www.binarytheme.com">
 				
 				<?php
-													$user = "root";
+													
+                    
+                    session_start();
+                    
+                    
+                    $user = "root";
 													$password = "";
 													$server = "localhost";
 													//mysql_connect($server,$user,$password);
@@ -163,7 +168,7 @@
                             </div>
                             <div class="col-md-12 col-sm-12">
                                 <div class="form-group">
-                                    <input type="text" name = "Password" class="form-control" required="required" placeholder="Password">
+                                    <input type="password" name = "Password" class="form-control" required="required" placeholder="Password">
                                 </div>
                             </div>
 
@@ -172,21 +177,28 @@
                                 <div class="form-group">
                                     <button type="submit" name = "LogIn" class="btn btn-success">Log In </button> </br></br>OR</br></br>
 									 <a href="signup.php" class="btn btn-success">Sign Up </a></br></br>
+									  
 									<?php
 									$sql = "SELECT * FROM profile";
 													$res = mysqli_query($db_handle,$sql);
 													$isLoggedIn = false;
-
+                                                    $_SESSION['login'] =  false;
+        
 													while($db_field = mysqli_fetch_assoc($res))
 													{
 															if($db_field['state']=='loggedIn')
 															{
 																print("Welcome! ".$db_field['Name']);
 																$isLoggedIn = true;
+                                                                $_SESSION['user'] =  $db_field['Name'];
+                                                                $_SESSION['login'] =  true;
+                                                                
 																break;
 															}
 													}
-													
+                                    
+																						
+			
 									?>				
                                 </div>
                             </div>
@@ -215,7 +227,7 @@
 													$password = "";
 													$server = "localhost";
 													//mysql_connect($server,$user,$password);
-													$database = "Community";
+													$database = "community";
 
 													$db_handle = mysqli_connect($server,$user,$password);
 													$db_found = mysqli_select_db($db_handle,$database);
@@ -254,9 +266,11 @@
                                 </li>
                                 <li class=""><a href="#profile-pills" data-toggle="tab">Profile</a>
                                 </li>
-                                <li class=""><a href="#messages-pills" data-toggle="tab">Messages</a>
+                                <!--li class=""><a href="#messages-pills" data-toggle="tab">Messages</a>
+                                </li-->
+                                <li class=""><a href="#settings-pills" data-toggle="tab">Survey</a>
                                 </li>
-                                <li class=""><a href="#settings-pills" data-toggle="tab">Settings</a>
+								<li class=""><a href="#donate-pills" data-toggle="tab">Donate</a>
                                 </li>
                             </ul>
 
@@ -265,6 +279,7 @@
                                     <h4>My Vision</h4>
                                     <p> 
 									<?php	
+                                        //session_start();
 										$sql = "SELECT * FROM profile";
 													$res = mysqli_query($db_handle,$sql);
 													$isLoggedIn = false;
@@ -276,14 +291,27 @@
 																
 																print("".$db_field['Vision']); print("</br>");
 																$isLoggedIn = true;
+                                                                $_SESSION['login'] = $isLoggedIn;
 																//print("<img src=\"profileImages\\".$db_field['ID'].".jpg\" style=\"width:304px;height:228px;border:dotted;\">");
 																break;
 															}
 													}
 													if($isLoggedIn == false)
-														echo"Please Log In";	
+                                                    {
+                                                        echo"Please Log In";
+                                                        $_SESSION['login'] = $isLoggedIn;
+                                                        
+                                                    }
+													if(isset($_POST['LogOut']))
+													{
+														mysqli_query($db_handle,"Update profile set State = 'LoggedOut'");
+													}
+															
 									?>
 									</p>
+									<form form name ="form1" METHOD="POST" ACTION ="profiles.php">
+									<button type="submit" name = "LogOut" class="btn btn-success">Log out </button> </br></br>
+									</form>
                                 </div>
                                 <div class="tab-pane fade" id="profile-pills">
                                     <h4>My Profile</h4>
@@ -339,7 +367,7 @@
 									</form>
 
                                 </div>
-                                <div class="tab-pane fade" id="messages-pills">
+                        <!--     <div class="tab-pane fade" id="messages-pills">
                                     <h4>Messages Tab</h4>
                                      <?php
 										
@@ -371,10 +399,251 @@
 										}
 											
 									 ?>
+									 
+									 
+									 
+									 
                                 </div>
+								
+								-->
                                 <div class="tab-pane fade" id="settings-pills">
-                                    <h4>Settings Tab</h4>
-                                    <p>Please Log In.</p>
+                                    <h3>Please Leave a Survay because your words matter!</h3>
+                                    
+									
+									<form form name ="form1" METHOD="POST" ACTION ="profiles.php">
+									
+									
+									
+									<div class="form-group">
+                        <h4>1. What level are you in your education?</br></h4>
+                        <input type="radio" name="level" value="I'm a Graduate">Graduate</br>
+                        <input type="radio" name="level" value="I'm a Post Graduate">Post Graduate</br></br>
+                        <h4>2. Do you think that the global mean temperature has risen, stayed the same, or fallen since 1800?</h4></BR>
+                            <input type="radio" name="global" value="I think temperature has risen">Risen </br>
+                            <input type="radio" name="global" value="I think temperature has stayed the same">Stayed the same </br>
+                            <input type="radio" name="global" value="I think temperature has fallen">Fallen </br>
+                            <input type="radio" name="global" value="I Feel Unsure about the change in temperature">Unsure </br></br>
+                        <h4> 3. Do you think that the evidence on global warming is widely accepted by the scientific community, or do a significant number of scientists have serious doubts?</h4><br></br>
+                            <input type="radio" name="evidence" value="I belive it will be widely accepted">Widely accepted </br>
+                            <input type="radio" name="evidence" value="I have serious doubts">Serious doubts </br>
+                            <input type="radio" name="evidence" value="I am unsure">Unsure </br></br>
+                        <h4>4. Do you think that human activity is contributing to any increase in Global mean temperatures?</h4></br></br>
+                            <input type="radio" name="activity" value="I believe it is significantly contributed by humans">Significantly contributed by humans</br>
+                            <input type="radio" name="activity" value="I believe it is moderately contributed by humans ">Moderately contributed by humans </br>
+             </br>
+                        <h4>5. Do you think that the condition of the environment will be better, worse, or about the same for the next generation?</h4></br>
+                            <input type="radio" name="environment" value="I think it will be better for the next generation">Better</br>
+                            <input type="radio" name="environment" value="I think it will be worse for the next generation">Worse</br>
+                            <input type="radio" name="environment" value="I think it will be the same for the next generation">Same</br>
+                            <input type="radio" name="environment" value="I am unsure" >Unsure</br>
+                        
+									</div>
+									
+									<div class="form-group">
+									 <h4> 6. What are some of the key steps you will take to prevent Climate Change? </h4>
+                                    <textarea  name="survtxt" id="Textarea1" required="required" value="" class="form-control" rows="6" placeholder="Your Steps Here..."></textarea>
+									</div>
+									 <div class="form-group">
+                                    <INPUT TYPE="submit" name = "surv" class="btn btn-success" value ="Complete Survey">
+                                </div>
+								
+								
+								
+									</form>
+									<?php
+									//mysqli_query($db_handle,"insert into survey(Name) values('kkl')");
+									$sql = "SELECT Name FROM profile where state = 'loggedIn'";
+									$res = mysqli_query($db_handle,$sql);
+									$db_field = mysqli_fetch_assoc($res);
+									$name=$db_field['Name'];
+									
+									
+									if(isset($_POST['surv']) && !empty($name))
+									{  //print("".$name);
+										if(!empty($_POST['level']) && !empty($_POST['global']) &&  !empty($_POST['evidence']) &&  !empty($_POST['activity']) &&  !empty($_POST['environment']))
+										{ $level=(string)$_POST['level'];
+										  $global=(string)$_POST['global'];
+										  $evidence=(string)$_POST['evidence'];
+										  $activity=(string)$_POST['activity'];
+										  $environment=(string)$_POST['environment'];
+										  $steps=(string)$_POST['survtxt'];
+										
+                                         //var_dump ($level);
+										//mysqli_query($db_handle,"insert into bullshit(baal) values('$level')");
+										
+                                         
+                                         $myfile = fopen("survey_file.txt", "w") or die("Unable to open file!");
+                                         $txt = $name."\r\n".$level."\r\n".$global."\r\n".$evidence."\r\n".$activity."\r\n".$environment."\r\n".$steps."\r\n";
+                                         fwrite($myfile, $txt);
+                                         fclose($myfile);
+										 $handle = fopen("survey_file.txt", "r");
+										 $con=0;
+										 $legit_name='nuh';
+										 while (($line = fgets($handle)) !== false) {
+											$con++;
+											if($con==1)
+											{
+												$name=$line;
+												$legit_name=$name;
+												
+												mysqli_query($db_handle,"insert into survey (Name) values('$name')");
+											}
+											if($con==2)
+											{
+												$level=$line;
+												//echo $level;
+												mysqli_query($db_handle,"update survey set level = '$level' where Name = '$legit_name'");
+											}
+											if($con==3)
+											{
+												$global=$line;
+												mysqli_query($db_handle,"update survey set global = '$global' where Name = '$legit_name'");
+											}
+											if($con==4)
+											{
+												$evidence=$line;
+												mysqli_query($db_handle,"update survey set evidence = '$evidence' where Name = '$legit_name'");
+											}
+											if($con==5)
+											{
+												$activity=$line;
+												mysqli_query($db_handle,"update survey set activity = '$activity' where Name = '$legit_name'");
+											}
+											if($con==6)
+											{
+												$environment=$line;
+												mysqli_query($db_handle,"update survey set environment = '$environment' where Name = '$legit_name'");
+											}
+											if($con==7)
+											{
+												$steps=$line;
+												mysqli_query($db_handle,"update survey set steps = '$steps' where Name = '$legit_name'");
+											}
+											
+											}
+										//echo mysqli_query($db_handle,"INSERT INTO survey(Name,level,global,evidence,activity,environment,steps) VALUES('$name','$level','$global','$evidence','$activity','$environment','$steps')");
+										echo " SURVEY COMPLETE ";
+										 
+										}
+
+										
+									}
+									?>
+                                </div>
+								
+								
+								
+								
+								
+								<div class="tab-pane fade" id="donate-pills">
+                                    <h4>Donations</h4>
+                                    <p>
+									<?php
+									echo"You have Donated a Total of: ";
+									$sql = "SELECT * FROM profile";
+									$res = mysqli_query($db_handle,$sql);
+									while($db_field = mysqli_fetch_assoc($res))
+									{
+											if($db_field['state']=='loggedIn')
+											{
+											print("".$db_field['totalDonation']);
+											print("$");
+											}
+									}
+									
+									
+									?>
+									</p>
+									
+									</br>
+									<h2>Donate Now For Making The World A Better Place</h2>
+									
+									<form form name ="form1" METHOD="POST" ACTION ="profiles.php">
+										<div class="form-group">
+                                    <h4>Donation Amount</h4><input type="text" name = "donate" class="form-control" required="required" placeholder="Lowest 1 Highest 5000">
+                                </div>
+								<div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <input type="text" name = "nameOnCard" class="form-control" required="required" placeholder="Name On Card">
+                                </div>
+                            </div>
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <input type="text" name = "cardNo" class="form-control" required="required" placeholder="16 Digit Card Number">
+                                </div>
+                            </div>
+
+							<div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <input type="text" name = "cvv" class="form-control" required="required" placeholder="4 Digit Card Security Number">
+                                </div>
+                            </div>
+							
+							
+							<div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    Card Expiry Date<input type="month" name = "exp" class="form-control" required="required" placeholder=" ">
+                                </div>
+                                </div>
+								
+								
+                                
+                                <div class="form-group">
+                                    <INPUT TYPE="submit" name = "Don" class="btn btn-success" value ="Donate Now">
+                                </div>
+								<?php
+									
+									if(isset($_POST['Don']))
+									{
+									$chk=true;
+									
+									$cardno = $_POST['cardNo'];
+									
+										if(!is_numeric (  $cardno ))
+										{$chk=false;
+									echo "INVALID CARD NO!";
+									}
+										if(strlen( $cardno)!=16)
+										{$chk=false;
+											echo "INVALID CARD NO!";
+										}
+									
+									
+									$donation = $_POST['donate'];
+									if(!($donation>=1 && $donation<=5000))
+									{$chk=false;
+										echo "INVALID DONATION AMOUNT!";
+									}
+									$cvv = $_POST['cvv'];
+									
+									if(!is_numeric (  $cvv ))
+									{$chk=false;
+								echo "INVALID CVV!";
+								}
+										if(strlen( $cvv)!=4)
+										{$chk=false;
+									echo "INVALID CVV!";}
+									
+									$sql = "SELECT * FROM profile";
+									$res = mysqli_query($db_handle,$sql);
+									if($chk){
+									while($db_field = mysqli_fetch_assoc($res))
+										{
+											if($db_field['state']=='loggedIn')
+											{
+											$donation += $db_field['totalDonation'];
+											$sql = "update profile set totalDonation ='$donation'  where state='loggedIn'";
+											 mysqli_query($db_handle,$sql);
+											print("Total Donation: ".$donation);
+											break;
+											}
+										}
+									}}
+									?>
+                            </div>
+										
+									</form>
+									
                                 </div>
                             </div>
                         </div>
@@ -388,16 +657,15 @@
 
     </section>
     <!--End Pricing Section -->
-    <!--parallax two-->
+    <!--parallax two
     <section  id="Parallax-two">
         <div class="container">
 
             <div class="row text-center">
                 <div class="col-md-8 col-md-offset-2 ">
-                     <h2><i class="fa fa-briefcase fa-3x"></i>&nbsp;Just Space </h2>
+                     <h2><i class="fa fa-briefcase fa-3x"></i>&nbsp </h2>
                     <h4>
-                        <strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                         Curabitur nec nisl odio. Mauris vehicula at nunc id posuere.
+                        <strong>
                         </strong>
                     </h4>
                 </div>
@@ -407,7 +675,7 @@
 
         </div>
     </section>
-    <!--./parallax two-->
+    ./parallax two-->
 
 
     <!-- Contact Section -->
@@ -417,7 +685,7 @@
                 <div class="col-md-12">
 
                     <div id="social-icon">
-                          <strong> Address:</strong> Credits
+                          <strong> Address:</strong> AUST
                         <a href="#"><i class="fa fa-facebook fa-2x"></i></a>
                         <a href="#"><i class="fa fa-twitter fa-2x"></i></a>
                         <a href="#"><i class="fa fa-linkedin fa-2x"></i></a>
@@ -434,7 +702,7 @@
     <!--End Contact Section -->
     <!--footer Section -->
     <div class="for-full-back " id="footer">
-			Credits
+			Credits : Tokey And Naimul
 
     </div>
     <!--End footer Section -->

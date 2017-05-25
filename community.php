@@ -39,7 +39,7 @@
                     <li><a href="blogs.html">BLOGS</a>
                     </li>
 
-                    <li><a href="#contact-sec">PROFILE</a>
+                    <li><a href="profiles.php">PROFILE</a>
                     </li>
 
                 </ul>
@@ -60,7 +60,7 @@
         <div class="row ">
             <div class="col-md-9 col-sm-9">
                 <h1 class="head-main">THE EARTH</h1>
-                <span class="head-sub-main">Before the flood</span>
+                <span class="head-sub-main"><a href="https://www.youtube.com/watch?v=6UGsRcxaSAI">Before the flood</a></span>
                 <div class="head-last">
 
                     Save the earth before it dies
@@ -70,7 +70,7 @@
                <div class="col-md-3 col-sm-3">
                    <div class="div-trans text-center">
                        <h3>Send us your ideas </h3>
-                        <form>
+                        <form action = "community.php">
 
                             <div class="col-md-12 col-sm-12">
                                 <div class="form-group">
@@ -148,9 +148,12 @@
 
 						                            if ( ! empty($_POST['message'])){
 						                                $message = $_POST['message'];
+														$message = strip_tags($message);
 						                            }
 
 						                            if(isset($_POST['enter'])){
+														
+														
 						                               $sql = "INSERT INTO ideas (Name,Email,Message) VALUES ('$name','$email','$message');";
 						                               mysqli_query($db_handle,$sql);
 
@@ -189,28 +192,77 @@
 
                     </h4>
                 </div>
+				
+				 
+               		
 
     </section>
+	
+	<section id="surveys">
+	<div class="container">
+            <div class="row text-center">
+				<h2> SURVEYS </h2>
+                    <div id="social-icon">
+
+
+
+                    </div>
+                    <h4>
+
+
+                        <?php
+													
+
+
+						                            
+
+													$sql = "SELECT * FROM Survey";
+													$res = mysqli_query($db_handle,$sql);
+
+
+
+
+
+
+													while($db_field = mysqli_fetch_assoc($res))
+													{
+														print("<strong> Survey taken by | </strong>");
+														print("".$db_field['Name']);  print("</br>");
+														
+														print("<strong> What level are you in your education? </strong>");print("</br>");
+														print("Answer: ".$db_field['level']);print("</br>");print("</br>");
+
+														print("<strong> Do you think that the global mean temperature has risen, stayed the same, or fallen since 1800? </strong>");print("</br>");
+														print("Answer: ".$db_field['global']);print("</br>");print("</br>");
+														
+														print("<strong> Do you think that the evidence on global warming is widely accepted by the scientific community, or do a significant number of scientists have serious doubts? </strong>");print("</br>");
+														print("Answer: ".$db_field['evidence']);print("</br>");print("</br>");
+														
+														print("<strong> Do you think that human activity is contributing to any increase in Global mean temperatures? </strong>");print("</br>");
+														print("Answer: ".$db_field['activity']);print("</br>");print("</br>");
+														
+														print("<strong> Do you think that the condition of the environment will be better, worse, or about the same for the next generation? </strong>");print("</br>");
+														print("Answer: ".$db_field['environment']);print("</br>");print("</br>");
+														
+														print("<strong> What are some of the key steps you will take to prevent Climate Change? </strong>");print("</br>");
+														print("Answer: ".$db_field['steps']);print("</br>");print("</br>");
+
+
+														print("</br>");
+														print("</br>");
+														print("</br>");
+
+													}
+
+                            ?>
+
+
+                    </h4>
+					
+					</section>
     <!--End Pricing Section -->
     <!--parallax two-->
-    <section  id="Parallax-two">
-        <div class="container">
-
-            <div class="row text-center">
-                <div class="col-md-8 col-md-offset-2 ">
-                     <h2><i class="fa fa-briefcase fa-3x"></i>&nbsp;Just Space </h2>
-                    <h4>
-                        <strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                         Curabitur nec nisl odio. Mauris vehicula at nunc id posuere.
-                        </strong>
-                    </h4>
-                </div>
-
-            </div>
-
-
-        </div>
-    </section>
+    
     <!--./parallax two-->
 
 
@@ -221,7 +273,7 @@
                 <div class="col-md-12">
 
                     <div id="social-icon">
-                          <strong> Address:</strong> Credits
+                          <strong> Address:</strong> AUST
                         <a href="#"><i class="fa fa-facebook fa-2x"></i></a>
                         <a href="#"><i class="fa fa-twitter fa-2x"></i></a>
                         <a href="#"><i class="fa fa-linkedin fa-2x"></i></a>
@@ -238,7 +290,7 @@
     <!--End Contact Section -->
     <!--footer Section -->
     <div class="for-full-back " id="footer">
-			Credits
+			Credits : Tokey And Naimul
 
     </div>
     <!--End footer Section -->

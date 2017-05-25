@@ -97,14 +97,14 @@
 
 							<div class="col-md-12 col-sm-12">
                                 <div class="form-group">
-                                    <input type="text" name = "pass" class="form-control" required="required" placeholder="Password">
+                                    <input type="password" name = "pass" class="form-control" required="required" placeholder="Password">
                                 </div>
                             </div>
 							
 							
 							<div class="col-md-12 col-sm-12">
                                 <div class="form-group">
-                                    <input type="text" name = "conpass" class="form-control" required="required" placeholder="Confirm Password">
+                                    <input type="password" name = "conpass" class="form-control" required="required" placeholder="Confirm Password">
                                 </div>
 								
 							<div class="form-group">
@@ -125,8 +125,8 @@
 								</div>
 								
 								
-								</br>
-								</br>
+								<br>
+								<br>
                                 <div class="form-group">
                                     <button type="submit" name = "signup" class="btn btn-success">Submit </button>
                                 </div>
@@ -146,7 +146,12 @@
 				$conpass = $_POST['conpass'];
 				$vision = $_POST['vision'];
 				if($pass==$conpass){	
-				print("SignUp Successful!");
+				
+                    
+                    if (!preg_match("/^[a-zA-Z ]*$/",$name)) {
+                        $nameErr = "Only letters and white space allowed";
+                    }
+                    
 				$user = "root";
 							$password = "";
 							$server = "localhost";
@@ -160,14 +165,32 @@
 							else
 							print  ("No connection available ");
 						
-						$sql = "INSERT INTO Profile (Name,Email,Password,Vision) VALUES ('$name','$email','$pass','$vision');";
+                   
+                    $query_name = mysqli_query($db_handle,"SELECT * FROM Profile where Name = '$name'");
+                    $query_pass = mysqli_query($db_handle,"SELECT * FROM Profile where Password = '$pass'");
+                    
+                    if(mysqli_num_rows($query_name)>0 or mysqli_num_rows($query_pass)>0)
+                    {
+                        echo "Username or Password already exsists! Try again!";
+                        print("<BR>SignUp not Successful!");
+                    }
+                    else if(!empty($nameErr))
+                    {
+                        echo $nameErr;
+                        print("<BR>SignUp not Successful!");
+                    }
+                    else
+                    {
+                        $sql = "INSERT INTO Profile (Name,Email,Password,Vision) VALUES ('$name','$email','$pass','$vision');";
                         mysqli_query($db_handle,$sql);
 						$sql = "SELECT ID FROM Profile where Name = '$name'";
 						
 						$res= mysqli_query($db_handle,$sql);
 						$id = mysqli_fetch_assoc($res);
-						
+						print("SignUp Successful!");
 						move_uploaded_file($_FILES['fileToUpload']['tmp_name'],"profileImages/".$id['ID'].".jpg");
+                    }
+						
 				}
 				else
 					print("PASSWORD DO NOT MATCH!");
@@ -177,24 +200,7 @@
     </section>
     <!--End Pricing Section -->
     <!--parallax two-->
-    <section  id="Parallax-two">
-        <div class="container">
-
-            <div class="row text-center">
-                <div class="col-md-8 col-md-offset-2 ">
-                     <h2><i class="fa fa-briefcase fa-3x"></i>&nbsp;Just Space </h2>
-                    <h4>
-                        <strong>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                         Curabitur nec nisl odio. Mauris vehicula at nunc id posuere.
-                        </strong>
-                    </h4>
-                </div>
-
-            </div>
-
-
-        </div>
-    </section>
+    
     <!--./parallax two-->
 
 
@@ -205,7 +211,7 @@
                 <div class="col-md-12">
 
                     <div id="social-icon">
-                          <strong> Address:</strong> Credits
+                          <strong> Address:</strong> AUST
                         <a href="#"><i class="fa fa-facebook fa-2x"></i></a>
                         <a href="#"><i class="fa fa-twitter fa-2x"></i></a>
                         <a href="#"><i class="fa fa-linkedin fa-2x"></i></a>
@@ -222,7 +228,7 @@
     <!--End Contact Section -->
     <!--footer Section -->
     <div class="for-full-back " id="footer">
-			Credits
+			Credits : Tokey And Naimul
 
     </div>
     <!--End footer Section -->

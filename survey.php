@@ -8,11 +8,17 @@
     <meta name="description" content="">
     <meta name="author" content="naimul011" >
   
-    <title>Free Bootstrap Parallax Template - Green Fire by Binarytheme</title>
+    <title>The Earth</title>
     <link href="assets/css/bootstrap.css" rel="stylesheet" />
     <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
     <link href="assets/css/style.css" rel="stylesheet" />
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <?php
+
+
+
+
+    ?>
 </head>
 <body>
     <!-- Navigation -->
@@ -31,12 +37,12 @@
             <!-- Collect the nav links for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="index.php">HOME</a>
+                    <li><a href="#home">HOME</a>
                     </li>
                     <li><a href="#community">COMMUNITY</a>
                     </li>
 
-                    <li><a href="blogs.html">BLOGS</a>
+                    <li><a href="#blogs">BLOGS</a>
                     </li>
 
                     <li><a href="#contact-sec">CONTACT</a>
@@ -107,39 +113,39 @@
             <div class="row text-center">
                 <div class="col-md-8 col-md-offset-2">
 
-                    <h2> Earth is beautiful</h2>
-                    <div id="social-icon">
-                          <strong> Written by :</strong> Laura Faye Tenenbaum and Holly Shaftel <br>
-                          <strong> BLOG date| :</strong> November 7, 2016, 12:01 PST <br>
-                            
-                        
-                    </div>
+                    
+                    
                     <h4>
-                        <strong>Need a dose of calm?
-                                Slow down and relax. Earth is beautiful.
+                        <strong>Here's Why People Don't Believe In Climate Change
                             
                         </strong>
                     </h4>
-                    <p>
-                        <strong>
-                            Earth, from the vantage point of space: Serene, breathtaking, magnificent. No matter how crazy busy your day is, no matter the level of stress, or chaos, or distraction, take a moment today—right now, in fact—to step back and feast on the great wonder of our home planet, Earth.
-                            <br>
-                            <img src="assets/img/1021.jpg" alt="Mountain View" style="width:500px;height:400px;">
-                            <br>
-                            I like to think about being in nature when I get caught up in the overwhelming day-to-day news cycles. For me, getting out in nature always calms my nerves. It gets me centered and grounded; it reminds me that I have the strength to face life’s challenges.  
-                            <br>
-                            <img src="assets/img/1026.jpg" alt="Mountain View" style="width:500px;height:400px;">
-                            <br>
-                            Right now I’m getting ready for a hike in nature. To notice things I normally pass by. To see vistas of faraway mountains and fields of small white flowers in the late fall sunshine.
-                            <br>
-                            <img src="assets/img/1027.jpg" alt="Mountain View" style="width:500px;height:400px;">
-                            <br>
-                            In those outdoor spaces, you get an experience of timelessness, a reminder of something bigger and longer-lasting than the rapidly shifting beats of the daily grind.
-                            <br>
-                            <br>
-                            So stop and give yourself a break, large or small. Even if it’s just to gaze quietly for a moment at a few of my favorite Earth pix that I gathered here to share with you.
-                        </strong>
-                    </p>
+                    <h2> Climate change </h2>
+                    
+                    <form action = "servey.php" name="myform" method="post" >
+                        <h4>1. What level are you in your education?<br></h4>
+                        <input type="radio" name="level" value="Graduate">Graduate<br>
+                        <input type="radio" name="level" value="Post Graduate">Post Graduate<br>
+                        <h4>2. Do you think that the global mean temperature has risen, stayed the same, or fallen since 1800?</h4><BR>
+                            <input type="radio" name="global" value="risen">risen 
+                            <input type="radio" name="global" value="stayed the same ">stayed the same 
+                            <input type="radio" name="global" value="fallen">fallen 
+                            <input type="radio" name="global" value="unsure">unsure <br>
+                        <h4> 3. Do you think that the evidence on global warming is widely accepted by the scientific community, or do a significant number of scientists have serious doubts?</h4><br>
+                            <input type="radio" name="evidence" value="widely accepted">widely accepted 
+                            <input type="radio" name="evidence" value="serious doubts">serious doubts 
+                            <input type="radio" name="evidence" value="unsure">unsure <br>
+                        <h4>4. Do you think that human activity is contributing to any increase in Global mean temperatures?</h4><br>
+                            <input type="radio" name="activity" value="Significantly contributed by humans">Significantly contributed by humans
+                            <input type="radio" name="activity" value="Moderately contributed by humans ">Moderately contributed by humans 
+             <br>
+                        <h4>5. Do you think that the condition of the environment will be better, worse, or about the same for the next generation?</h4><br>
+                            <input type="radio" name="environment" value="better">better
+                            <input type="radio" name="environment" value="worse">worse
+                            <input type="radio" name="environment" value="same">same
+                            <input type="radio" name="environment" value="unsure">unsure<br>
+                        <h6>  <input type="submit" name="Done" value="Done"></h6>
+                    </form>
                 </div>
                 
             </div>
