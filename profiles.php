@@ -1,3 +1,19 @@
+<?php
+	session_start();
+	include_once("config.php");
+	if(!isset($_SESSION['username'])){
+       $sql = "UPDATE profile set State = 'LoggedOut'";
+	   mysqli_query($db_handle,$sql);
+      }
+	  else
+	  {
+		  $nam = $_SESSION['username'];
+		  $sql = "UPDATE profile set State = 'loggedIn' where Name = '$nam'";
+		  $res = mysqli_query($db_handle,$sql);
+	  }
+?>
+
+
 <mark><ruby><figure><footer><header><hgroup><aside><article><nav></nav></article></aside></hgroup></header></footer></figure></ruby></mark><!DOCTYPE html>
 
 <html lang="en">
@@ -29,12 +45,7 @@
                 <a class="navbar-brand" href="htttp://www.binarytheme.com">
 				
 				<?php
-													
-                    
-                    session_start();
-                    
-                    
-                    $user = "root";
+													$user = "root";
 													$password = "";
 													$server = "localhost";
 													//mysql_connect($server,$user,$password);
@@ -88,6 +99,8 @@
 														if($db_field['Email']=$email && $db_field['Password'] == $pass)
 														{
 															$chk=true;
+															$chk=true;
+															$_SESSION['username']=$db_field['Name'];
 															break;
 														}
 													}
@@ -305,6 +318,7 @@
 													if(isset($_POST['LogOut']))
 													{
 														mysqli_query($db_handle,"Update profile set State = 'LoggedOut'");
+														header("LOCATION:logout.php");
 													}
 															
 									?>

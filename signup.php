@@ -188,7 +188,12 @@
 						$res= mysqli_query($db_handle,$sql);
 						$id = mysqli_fetch_assoc($res);
 						print("SignUp Successful!");
+
 						move_uploaded_file($_FILES['fileToUpload']['tmp_name'],"profileImages/".$id['ID'].".jpg");
+                        echo "<script>
+                                alert('Sign Up Successful!');
+                                </script>";
+                        //header("LOCATION:profile.php");
                     }
 						
 				}
