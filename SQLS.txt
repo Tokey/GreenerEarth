@@ -1,0 +1,31 @@
+
+drop table Profile;
+
+CREATE Table Profile
+(
+    Name varchar(500),
+    Email varchar(500),
+    Password varchar(100),
+    ConfirmPassword varchar(100),
+    image varchar(100),
+    state varchar(10) default "loggedOut",
+    ID int NOT NULL AUTO_INCREMENT,
+    PRIMARY KEY (ID),
+    Vision varchar(5000)		
+);
+
+INSERT INTO profile (Name,Email,Password,Vision)
+Values('Samin Shahriar Tokey','saminshahriar@rocketmail.com','6143','I strongly believe in potatoes');
+
+CREATE table Messages
+(
+    Sender varchar(500),
+    Reciever varchar(500),
+    MessageText varchar(3000)
+);
+
+Insert INTO Messages 
+Values('Naimul','saminshahriar@rocketmail.com','Why do you find potatoes so fascinating?');
+
+Insert INTO Messages 
+Values('Naimul','saminshahriar@rocketmail.com','Tell Me man!!');
