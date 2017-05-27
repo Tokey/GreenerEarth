@@ -1,3 +1,19 @@
+
+<?php
+	session_start();
+	include_once("config.php");
+	if(!isset($_SESSION['username'])){
+       $sql = "UPDATE profile set State = 'LoggedOut'";
+	   mysqli_query($db_handle,$sql);
+      }
+	  else
+	  {
+		  $nam = $_SESSION['username'];
+		  $sql = "UPDATE profile set State = 'loggedIn' where Name = '$nam'";
+		  $res = mysqli_query($db_handle,$sql);
+	  }
+?>
+
 <mark><ruby><figure><footer><header><hgroup><aside><article><nav></nav></article></aside></hgroup></header></footer></figure></ruby></mark><!DOCTYPE html>
 
 <html lang="en">
@@ -108,44 +124,96 @@
     </div>
           </div>
   
+
+
+	 
+
+
+
+
     <section  id="blogs">
         <div class="container">
             <div class="row text-center">
                 <div class="col-md-8 col-md-offset-2">
 
+
+			<?php
+				include_once("config.php");
+                $data = $_GET["data"];
+				if(isset($_POST['thr']))
+					{
+						$n = $_SESSION['username'];
+						$sql2 = "Select * from profile where Name = '$n'";
+
+                  		$res2=mysqli_query($db_handle,$sql2);
+                  		$user = mysqli_fetch_assoc($res2);
+						$mes = $_POST['mes'];
+						$id = $user['ID'];
+						date_default_timezone_set("Asia/Dhaka");
+						$today = date("Y-m-d H:i:s");
+						$sql4 = "INSERT INTO discussion (comment,heading,user_id,date) values ('$mes','$data','$id','$today')";
+						mysqli_query($db_handle,$sql4);
+
+					}
                     
+				$sql = "Select * from discussion where heading = '$data' order by commID";
+                $res=mysqli_query($db_handle,$sql);
+				$count = 0;
+
+				echo "<h2>".$data."</h2>";
+				while($db_field = mysqli_fetch_assoc($res))
+					{
+						$count++;
+						echo "<h3>".$count.". ".$db_field['comment']."</h3>";
+						$uid = $db_field['user_id'];
+						$sql1 = "Select * from profile where ID = '$uid'";
+
+                  		$res1=mysqli_query($db_handle,$sql1);
+                  		$user = mysqli_fetch_assoc($res1);
+
+                  		echo "<strong>"."Posted by : ".$user['Name']."</strong>"."</br>";
+                  		echo "Date : ".$db_field['date'];
+                  		echo "</br>";
+                  		echo "</br>";
+                  		echo "</br>";
+                        
+
+					}
+
+
+
+			?> 
+
+            <?php
+
+                if(isset($_SESSION['username']))
+                 {
                     
-                    <h4>
-                        <strong>Here's Why People Don't Believe In Climate Change
+                    echo" <form action=\"Threads.php?data=";
+                    echo"".$_GET["data"]."\"";
+                    echo"\" method=\"POST\" enctype=\"multipart/form-data\" > ";
+                   
+                      echo" <h3>Reply to this thread as  ".$_SESSION['username'] . "</h3>";
+
                             
-                        </strong>
-                    </h4>
-                    <h2> Climate change </h2>
+                   echo"<textarea  name=\"mes\" id=\"Textarea1\" name= \"message\" required=\"required\" value=\"\" class=\"form-control\" rows=\"6\" "; 
+                   
+                   echo"placeholder=\"Thread on climate change\"></textarea>";
+                                
+                                 echo"</br>";
+                                
+                                echo" <div class=\"form-group\">";
+                                     echo"<button type=\"submit\" name = \"thr\" class=\"btn btn-success\">Submit </button>";
+                                echo " </div> ";       
+                     echo "</form>";}
+
+                     else {
+                        echo "<h3> Please Log in to start a new Thread! </h3>";
+                        echo "<h3> <a href = \"profiles.php\" > LOG IN NOW! </a> </h3>";
+                     }
+                ?>
                     
-                    <form action = "servey.php" name="myform" method="post" >
-                        <h4>1. What level are you in your education?<br></h4>
-                        <input type="radio" name="level" value="Graduate">Graduate<br>
-                        <input type="radio" name="level" value="Post Graduate">Post Graduate<br>
-                        <h4>2. Do you think that the global mean temperature has risen, stayed the same, or fallen since 1800?</h4><BR>
-                            <input type="radio" name="global" value="risen">risen 
-                            <input type="radio" name="global" value="stayed the same ">stayed the same 
-                            <input type="radio" name="global" value="fallen">fallen 
-                            <input type="radio" name="global" value="unsure">unsure <br>
-                        <h4> 3. Do you think that the evidence on global warming is widely accepted by the scientific community, or do a significant number of scientists have serious doubts?</h4><br>
-                            <input type="radio" name="evidence" value="widely accepted">widely accepted 
-                            <input type="radio" name="evidence" value="serious doubts">serious doubts 
-                            <input type="radio" name="evidence" value="unsure">unsure <br>
-                        <h4>4. Do you think that human activity is contributing to any increase in Global mean temperatures?</h4><br>
-                            <input type="radio" name="activity" value="Significantly contributed by humans">Significantly contributed by humans
-                            <input type="radio" name="activity" value="Moderately contributed by humans ">Moderately contributed by humans 
-             <br>
-                        <h4>5. Do you think that the condition of the environment will be better, worse, or about the same for the next generation?</h4><br>
-                            <input type="radio" name="environment" value="better">better
-                            <input type="radio" name="environment" value="worse">worse
-                            <input type="radio" name="environment" value="same">same
-                            <input type="radio" name="environment" value="unsure">unsure<br>
-                        <h6>  <input type="submit" name="Done" value="Done"></h6>
-                    </form>
+                    
                 </div>
                 
             </div>

@@ -1,6 +1,17 @@
 <mark><ruby><figure><footer><header><hgroup><aside><article><nav></nav></article></aside></hgroup></header></footer></figure></ruby></mark><!DOCTYPE html>
 <?php
-//session_start();
+	session_start();
+	include_once("config.php");
+	if(!isset($_SESSION['username'])){
+       $sql = "UPDATE profile set State = 'LoggedOut'";
+	   mysqli_query($db_handle,$sql);
+      }
+	  else
+	  {
+		  $nam = $_SESSION['username'];
+		  $sql = "UPDATE profile set State = 'loggedIn' where Name = '$nam'";
+		  $res = mysqli_query($db_handle,$sql);
+	  }
 ?>
 
 <html lang="en">
@@ -40,7 +51,8 @@
 
                     <li><a href="blogs.html">BLOGS</a>
                     </li>
-
+					<li><a href="Forums.php">Forums</a>
+                    </li>
                     <li><a href="profiles.php">PROFILE</a>
                     </li>
 

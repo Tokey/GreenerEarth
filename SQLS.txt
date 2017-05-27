@@ -44,4 +44,30 @@ CREATE Table Survey
     		
 );
 
+Create Table Ideas
+(
+	Name varchar(1000),
+	Email varchar(1000),
+	Message varchar(5000)
+)
+
 insert into survey values('Tokey','illiterate','unsure','why would i care','plis','dont care','go home')
+
+CREATE TABLE Threads
+(
+	heading varchar(5000),
+	headId int NOT NULL AUTO_INCREMENT primary key,
+	user_id int,
+	date DATETIME
+);
+
+CREATE TABLE Discussion
+(
+	heading varchar(5000),
+	commId int NOT NULL AUTO_INCREMENT primary key,
+	comment varchar(5000),
+	user_id int,
+	date DATETIME
+);
+
+insert into threads values('Test Thread',1,1,'12/12/12')

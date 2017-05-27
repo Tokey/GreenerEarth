@@ -2,5 +2,8 @@
 	
 	session_start();
 	session_destroy();
-	header("LOCATION:index.php");
+	echo "<script>
+	alert('Logged Out Succesfully!');
+	</script>";
+	header("LOCATION:profiles.php");
 ?>

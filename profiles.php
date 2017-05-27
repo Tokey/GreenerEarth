@@ -1,6 +1,17 @@
+
+
+
+
 <?php
+
+include_once("config.php");
+if(isset($_POST['LogOut']))
+{
+mysqli_query($db_handle,"Update profile set State = 'LoggedOut'");													
+header("LOCATION:logout.php");
+}
+
 	session_start();
-	include_once("config.php");
 	if(!isset($_SESSION['username'])){
        $sql = "UPDATE profile set State = 'LoggedOut'";
 	   mysqli_query($db_handle,$sql);
@@ -99,12 +110,11 @@
 														if($db_field['Email']=$email && $db_field['Password'] == $pass)
 														{
 															$chk=true;
-															$chk=true;
 															$_SESSION['username']=$db_field['Name'];
 															break;
 														}
 													}
-													}
+													
 													if($chk==true)
 													{
 													$sql = "UPDATE profile set State = 'loggedOut'";
@@ -120,12 +130,25 @@
 														if($db_field['Email']=$email);
 															//print("Welcome! ".$db_field['Name']);
 													}
+													echo "<script>
+       													 alert('Login Succesfull');
+               											  </script>";
+               											  
+													header("LOCATION:profiles.php");
 													
 													}
-															
+													else
+													{
+
+														echo "<script>
+       													 alert('Login Failed');
+               											  </script>";
+													}
+											}	
 				
 				?>
 				</a>
+													
             </div>
             <!-- Collect the nav links for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
@@ -235,7 +258,7 @@
                 <div class="col-md-6 col-sm-6">
                     <h3>This is me!</h3>
                     <p class="btn btn-success">
-                       <?php
+                      					 <?php
 													$user = "root";
 													$password = "";
 													$server = "localhost";
@@ -315,12 +338,7 @@
                                                         $_SESSION['login'] = $isLoggedIn;
                                                         
                                                     }
-													if(isset($_POST['LogOut']))
-													{
-														mysqli_query($db_handle,"Update profile set State = 'LoggedOut'");
-														header("LOCATION:logout.php");
-													}
-															
+
 									?>
 									</p>
 									<form form name ="form1" METHOD="POST" ACTION ="profiles.php">
