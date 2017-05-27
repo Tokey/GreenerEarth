@@ -51,7 +51,7 @@
 
                     <li><a href="blogs.html">BLOGS</a>
                     </li>
-					<li><a href="Forums.php">Forums</a>
+					<li><a href="Forums.php">FORUMS</a>
                     </li>
                     <li><a href="profiles.php">PROFILE</a>
                     </li>
@@ -148,7 +148,9 @@
                             if(isset($_POST['enter'])){
                                $sql = "INSERT INTO ideas (Name,Email,Message) VALUES ('$name','$email','$message');";
                                mysqli_query($db_handle,$sql);
-
+									echo "<script>
+       								 alert('Idea Submitted!');
+               					</script>";
 							}
                             ?>
                     </form>

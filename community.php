@@ -32,13 +32,14 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="index.php">HOME</a>
-                    </li>
+                    
                     <li><a href="community.php">COMMUNITY</a>
                     </li>
 
                     <li><a href="blogs.html">BLOGS</a>
                     </li>
-
+					<li><a href="Forums.php">FORUMS</a>
+                    </li>
                     <li><a href="profiles.php">PROFILE</a>
                     </li>
 
@@ -70,26 +71,27 @@
                <div class="col-md-3 col-sm-3">
                    <div class="div-trans text-center">
                        <h3>Send us your ideas </h3>
-                        <form action = "community.php">
+                        <form name ="form1" METHOD="POST" ACTION ="community.php">
 
                             <div class="col-md-12 col-sm-12">
                                 <div class="form-group">
-                                    <input type="text" name = "name" class="form-control" required="required" placeholder="Name">
-                                </div>
-                            </div>
-                            <div class="col-md-12 col-sm-12">
-                                <div class="form-group">
-                                    <input type="text" name = "email" class="form-control" required="required" placeholder="Email address">
+                                    <INPUT TYPE="text" class="form-control" name = "name" required="required" value="" placeholder="Name">
                                 </div>
                             </div>
 
+                            <div class="col-md-12 col-sm-12">
+                                <div class="form-group">
+                                    <INPUT TYPE="text" class="form-control" name="email" required="required" value="" placeholder="Email address">
+                                </div>
+                            </div>
+
 
                             <div class="col-md-12 col-sm-12">
                                 <div class="form-group">
-                                    <textarea name="message" id="Textarea1" required="required" class="form-control" rows="3" placeholder="Message"></textarea>
+                                    <textarea  name="message" id="Textarea1" name= "message" required="required" value="" class="form-control" rows="5" placeholder="Message"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <button type="submit" name = "enter" class="btn btn-success">Submit Here </button>
+                                    <INPUT TYPE="submit" name = "enter" class="btn btn-success" value ="Submit Here">
                                 </div>
                             </div>
 
@@ -97,11 +99,13 @@
                    </div>
 
             </div>
+			
+			
 
         </div>
     </div>
           </div>
-
+		  
     <section  id="blogs">
         <div class="container">
             <div class="row text-center">
@@ -156,6 +160,9 @@
 														
 						                               $sql = "INSERT INTO ideas (Name,Email,Message) VALUES ('$name','$email','$message');";
 						                               mysqli_query($db_handle,$sql);
+													   echo "<script>
+       													 alert('Idea Submitted!');
+               											  </script>";
 
 													}
 

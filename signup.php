@@ -38,7 +38,8 @@
 
                     <li><a href="blogs.html">BLOGS</a>
                     </li>
-
+					<li><a href="Forums.php">FORUMS</a>
+                    </li>
                     <li><a href="profiles.php">PROFILE</a>
                     </li>
 

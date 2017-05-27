@@ -53,15 +53,16 @@
             <!-- Collect the nav links for toggling -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#home">HOME</a>
+                    <li><a href="index.php">HOME</a>
                     </li>
-                    <li><a href="#community">COMMUNITY</a>
-                    </li>
-
-                    <li><a href="#blogs">BLOGS</a>
+                    <li><a href="community.php">COMMUNITY</a>
                     </li>
 
-                    <li><a href="#contact-sec">CONTACT</a>
+                    <li><a href="blogs.html">BLOGS</a>
+                    </li>
+					<li><a href="Forums.php">FORUMS</a>
+                    </li>
+                    <li><a href="profiles.php">PROFILE</a>
                     </li>
                    
                 </ul>

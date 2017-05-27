@@ -39,13 +39,14 @@
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#home">HOME</a>
                     </li>
-                    <li><a href="#community">COMMUNITY</a>
+                    <li><a href="community.php">COMMUNITY</a>
                     </li>
 
-                    <li><a href="#blogs">BLOGS</a>
+                    <li><a href="blogs.html">BLOGS</a>
                     </li>
-
-                    <li><a href="#contact-sec">CONTACT</a>
+					<li><a href="Forums.php">FORUMS</a>
+                    </li>
+                    <li><a href="profiles.php">PROFILE</a>
                     </li>
                    
                 </ul>

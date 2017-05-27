@@ -160,8 +160,9 @@ header("LOCATION:logout.php");
 
                     <li><a href="blogs.html">BLOGS</a>
                     </li>
-
-                    <li><a href="#contact-sec">PROFILE</a>
+					<li><a href="Forums.php">FORUMS</a>
+                    </li>
+                    <li><a href="profiles.php">PROFILE</a>
                     </li>
 
                 </ul>
